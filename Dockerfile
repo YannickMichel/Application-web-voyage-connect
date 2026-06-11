@@ -1,5 +1,7 @@
 FROM maven:3.9-eclipse-temurin-17 AS build
 
+ARG CACHEBUST=20260611
+
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
