@@ -1,18 +1,8 @@
-FROM maven:3.9-eclipse-temurin-17 AS build
-
-ARG CACHEBUST=20260611
-
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-
-RUN mvn clean package -DskipTests
-
-FROM tomcat:10.1-jdk17
+FROM tomcat:10.1-jdk21
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-COPY --from=build /app/target/VoyageConnect-1.0.war /usr/local/tomcat/webapps/ROOT.war
+COPY target/VoyageConnect-1.0.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
